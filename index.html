@@ -1,0 +1,334 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>2048 Game - Play 2048 Game Online</title>
+<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<link href="./css/main.css" rel="stylesheet" type="text/css">
+
+
+<style>
+*{
+	box-sizing:content-box;
+}
+.score-container:after {
+	content: "Score";
+}
+.best-container:after {
+	content: "Best";
+}
+#selfcontainer input[type='text'] {
+	float: right;
+	width: 50%;
+}
+span.alertInfo {
+	/*float: right;*/
+	display:block;
+	margin:auto;
+	width:100px;
+	height:10px;
+	line-height:10px;
+	
+	color:#F00;
+	font-size:10px;
+}
+
+.container {
+    width: 90%;
+}
+
+.modal input{
+	display: block;
+	width: 300px;
+	height: 30px;
+	margin-top: 17.5px;
+	margin-bottom: 35px;
+	margin-left: auto;
+    margin-right: auto;
+}
+@media screen and (max-width:500px)
+{
+.modal input{
+	display: block;
+	width: 150px;
+	height: 30px;
+	margin-top: 17.5px;
+	margin-bottom: 35px;
+	margin-left: auto;
+    margin-right: auto;
+}
+}
+
+</style>
+<meta property="og:image" content="/meta/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+
+<!--<div class="login"> <a href="#">登录</a> <a href="#">注册</a> </div>-->
+<!--<div class="head">
+    <ul>
+      <li><a href="#">自定义2048</a></li>
+      <li><a href="#">俄罗斯方块</a></li>
+      <li><a href="#">坦克大战</a></li>
+      <li><a href="#">消消看</a></li>
+    </ul>
+</div>-->
+<a data-toggle="modal"
+   data-target="#myModalLogin">登录</a>
+<a data-toggle="modal"
+   data-target="#myModalRegister">/注册</a>
+<div class="whole-container">
+  <div class="heading">
+    <h1 class="title"><a href="#">自定义2048</a></h1>
+    <div class="scores-container">
+      <div class="score-container">84
+        <div class="score-addition">+12</div>
+      </div>
+      <div class="best-container">1120</div>
+    </div>
+  </div>
+  <div class="game-intro"> <a class="restart-button">新游戏</a>
+    <h2 class="subtitle">Play <strong>2048 Game</strong> self</h2>
+    <div class="above-game">
+      <p>2048自定义，允许您定义自己的2048元素</p>
+    </div>
+  </div>
+  <div class="game-container">
+    <div class="game-message">
+      <p></p>
+      <div class="lower"> <a class="keep-playing-button">Keep playing</a> <a class="retry-button">Try again</a>
+        <div class="score-sharing"> </div>
+      </div>
+    </div>
+    <div class="grid-container">
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+    </div>
+    <div class="tile-container"> </div>
+  </div>
+  <div id="selfcontainer"> <span>启用自定义：
+    <input type="radio" id="self-define-enable" checked="unchecked" name="selfcontrol" value="enable"  />
+    </span> <span style="float:right;">禁用自定义：
+    <input type="radio" id="self-define-disable" checked="checked" name="selfcontrol" value="disable"  />
+    </span> </br>
+    </br>
+    代表2的元素：
+    <input name="" value="2" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表4的元素：
+    <input name="" value="4" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表8的元素：
+    <input name="" value="8" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表16的元素：
+    <input name="" value="16" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表32的元素：
+    <input name="" value="32" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表64的元素：
+    <input name="" value="64" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表128的元素：
+    <input name="" value="128" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表256的元素：
+    <input name="" value="256" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表512的元素：
+    <input name="" value="512" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表1024的元素：
+    <input name="" value="1024" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表2048的元素：
+    <input name="" value="2048" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表4096的元素：
+    <input name="" value="4096" type="text" disabled="disabled" />
+    </br>
+    </br>
+    代表8192的元素：
+    <input name="" value="8192" type="text" disabled="disabled" />
+    </br>
+    </br>
+    <input style="display:block; width:100px; margin:50px auto;" id="self-define-submit" name="" type="button" value="提交结果" disabled="disabled" />
+  </div>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModalLogin" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true"> &times; </button>
+        <h4 class="modal-title" id="myModalLabel">登录</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="input-group-md">
+            <input type="text" class="form-control" placeholder="用户名">
+          </div>
+          <div class="input-group-md">
+            <input type="password" class="form-control" placeholder="密码">
+          </div>
+           <span class='alertInfo'></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" 
+               data-dismiss="modal">关闭 </button>
+        <button type="button" class="btn btn-primary"> 提交 </button>
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+  </div>
+  <!-- /.modal --> 
+</div>
+<div class="modal fade" id="myModalRegister" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true"> &times; </button>
+        <h4 class="modal-title" id="myModalLabel">注册</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="input-group-md">
+            <input type="text" class="form-control" placeholder="用户名">
+          </div>
+          <div class="input-group-md">
+            <input type="password" class="form-control" placeholder="密码">
+          </div>
+          <div class="input-group-md">
+            <input type="password" class="form-control" placeholder="重复密码">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" 
+               data-dismiss="modal">关闭 </button>
+        <button type="button" class="btn btn-primary"> 提交更改 </button>
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+  </div>
+  <!-- /.modal --> 
+</div>
+
+<script src="./js/all.js"></script>
+<script>
+$('#myModalLogin').on('show.bs.modal', function () {
+	$('#myModalLogin input').val("");
+	$('#myModalLogin input:eq(0)').attr("placeholder","用户名");
+	$('#myModalLogin input:eq(1)').attr("placeholder","密码");
+	
+})
+$('#myModalRegister').on('show.bs.modal', function () {
+	$('#myModalRegister input').val("");
+	$('#myModalRegister input:eq(0)').attr("placeholder","用户名");
+	$('#myModalRegister input:eq(1)').attr("placeholder","密码");
+	$('#myModalRegister input:eq(2)').attr("placeholder","重复密码");
+})
+
+$('input').on('keydown',function(){
+	event.stopPropagation();//当输入框获得焦点后，需要屏蔽all.js中的按键事件，避免传播
+})
+$('#myModalLogin .btn.btn-primary').on('click',function(){
+	if($('#myModalLogin input:eq(0)').val()=="")
+	{
+		$(".alertInfo").html("请填写用户名");
+		return;
+	}
+	if($('#myModalLogin input:eq(1)').val()=="")
+	{
+		$(".alertInfo").html("请填写密码");
+		return;
+	}
+	var name=$('#myModalLogin input:eq(0)').val();
+	var password=$('#myModalLogin input:eq(1)').val();
+	$.post('login.php',
+	{name:name,password:password},
+	function(data){
+		if(data=="001")
+		{
+			$(".alertInfo").html("用户名不存在");
+			return;
+		}
+		else if(data=="002")
+		{
+			$(".alertInfo").html("密码错误");
+			return;
+		}
+		else//成功登录
+		{
+			$(".alertInfo").html("");
+			$("a").remove();
+			$(".whole-container").before("<a></a>").before("<a></a>");
+			$("a:eq(0)").html("欢迎");
+			$("a:eq(1)").html("退出");
+			$("a:eq(1)").on('click',function(){//点击退出后的事件必须在此加载，确保有logOut这个class后加载才有意义
+				//$("a:eq(0)").html("登录").attr("data-toggle","modal").attr("data-target","#myModalLogin");
+				//$("a:eq(1)").html("/注册").attr("data-toggle","modal");
+				//$("a:eq(1)").attr("data-target","#myModalRegister");
+				//event.stopPropagation();
+				$("a").remove();
+				$(".whole-container").before("<a data-toggle='modal' data-target='#myModalLogin'>登录</a>")
+				$(".whole-container").before("<a data-toggle='modal' data-target='#myModalRegister'>/注册</a>")
+			});
+			
+			$('#myModalLogin').modal('hide');
+			
+			
+		}
+	});
+});
+</script>
+</body>
+</html>
